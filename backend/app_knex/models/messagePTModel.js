@@ -11,6 +11,41 @@ async function getAllMessagesPTs() {
   return await knex.select().from('MessagesPT');
 }
 
+// récupérer les messages d'un utilisateur avec les réactions 
+async function getMessagesByUserId(userId) {
+  try {
+    const messages = await db('messagesPT as m')
+      .select(
+        'm.id',
+        'm.message',
+        'm.date',
+        'u.name as senderName',
+        's.name as structure',
+        's.country'
+      )
+      .leftJoin('users as u', 'm.user_id', 'u.id')
+      .leftJoin('structures as s', 'u.structure_id', 's.id')
+      .where('m.user_id', userId)
+      .orderBy('m.date', 'desc');
+
+    const messageIds = messages.map(msg => msg.id);
+
+    const reactions = await db('reactions as r')
+      .whereIn('r.messagePT_id', messageIds)
+      .select('r.id', 'r.reaction', 'r.user_id', 'r.messagePT_id');
+
+    const messagesWithReactions = messages.map(msg => ({
+      ...msg,
+      reactions: reactions.filter(r => r.messagePT_id === msg.id)
+    }));
+
+    return messagesWithReactions;
+  } catch (error) {
+    console.error('Erreur dans getMessagesByUserId :', error);
+    throw new Error("Erreur lors de la récupération des messages de l'utilisateur");
+  }
+}
+
 async function getMessages() {
   try {
     const messages = await db('messagesPT as m')
@@ -48,9 +83,9 @@ async function getMessagePTById(id) {
   return await knex('MessagesPT').where({ id }).first();
 }
 
-async function getMessagesByUserId(userId) {
-  return await knex('MessagesPT').where({ userId });
-}
+// async function getMessagesByUserId(userId) {
+//   return await knex('MessagesPT').where({ userId });
+// }
 
 // Update
 async function updateMessagePT(id, newMessage, newDate) {

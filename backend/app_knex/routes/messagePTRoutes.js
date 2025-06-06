@@ -47,16 +47,17 @@ router.get('/messagesPT', async (req, res) => {
 });
 
 // Obtenir un message par ID de l'utilisateur
-router.get('/my-messagesPT', async (req, res) => {
-  const user = await getUserFromRequest(req);
-
-  if (!user) return res.status(401).json({ error: 'Non authentifié' });
-
+router.get('/messagesPT/users/:id', async (req, res) => {
+  const { id } = req.params;
   try {
-    const messages = await messageModel.getMessagesByUserId(user.id);
-    res.json(messages);
+    const message = await messageModel.getMessagesByUserId(id);
+    if (!message) {
+      return res.status(404).json({ error: 'Message non trouvé' });
+    }
+    res.json(message);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error('Erreur dans GET /messagesPT/:id :', error);
+    res.status(500).json({ error: 'Erreur lors de la récupération du message' });
   }
 });
 
