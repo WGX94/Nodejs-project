@@ -13,6 +13,7 @@ import infinityBg from "../../assets/infinityBg.svg"
 import rabbitBg from "../../assets/rabbitBg.svg"
 import turtleBg from "../../assets/turtleBg.svg"
 import { useNavigate, useParams, useLocation } from "react-router-dom";
+import defaultAvatar from "../../assets/avatar.png"
 
 const SideBarGamesContainer = () => {
 
@@ -26,25 +27,24 @@ const SideBarGamesContainer = () => {
     const [userId, setUserId] = useState(null);
     const [userJob, setUserJob] = useState('');
     const [games, setGames] = useState([]);
+    const [user, setUser] = useState(null);
     const [favorites, setFavorites] = useState([]);
     const [onlinePlayers, setOnlinePlayers] = useState([]);
 
     const isVictoryPage = location.pathname.includes('/victory/');
 
     useEffect(() => {
-        const storedUser = localStorage.getItem('user');
-        if (storedUser) {
-            const user = JSON.parse(storedUser);
-            setUserName(user.name);
-            setUserJob(user.jobTitle);
-            setUserId(user.id);
-
-            fetch(`http://localhost/liked/${user.id}`)
-                .then(res => res.json())
-                .then(setFavorites)
-                .catch(err => console.error("Erreur favoris :", err));
-        }
-    }, []);
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      const parsedUser = JSON.parse(storedUser);
+      setUser(parsedUser);
+      fetch(`http://localhost/liked/${parsedUser.id}`)
+        .then((res) => res.json())
+        .then(setFavorites)
+        .catch((err) => console.error("Erreur favoris :", err));
+    }
+    console.log("User loaded:", storedUser);
+  }, []);
 
     useEffect(() => {
         fetch("http://localhost/games")
@@ -204,10 +204,20 @@ const SideBarGamesContainer = () => {
                     <button onClick={handleLogout} id="logOutButton">Log out</button>
                 </div>
                 <div id="userBlock">
-                    <img id="avatar" src={avatar} alt="" />
+                    <img
+              id="avatar"
+              src={
+                user?.image
+                  ? `http://localhost/uploads/${user.image}`
+                  : defaultAvatar
+              }
+              alt="avatar"
+              style={{ width: "50px", height: "50px" }
+            }
+            />
                     <div id="userInfo">
-                        <span id="jobTitle">{userJob || 'PRODUCT DESIGNER'}</span>
-                        <span id="userName">{userName}</span>
+                        <span id="jobTitle">{user?.jobTitle || "DESIGNER"}</span>
+                        <span id="userName">{user?.name || "James"}</span>
                     </div>
                 </div>
 
