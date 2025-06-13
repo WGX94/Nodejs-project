@@ -79,38 +79,92 @@ router.delete('/users/:id', async (req, res) => {
   }
 });
 
-// Connexion simple (démo) par prénom
-router.post('/login', async (req, res) => {
-  const { name } = req.body;
 
-  if (!name) {
-    return res.status(400).json({ error: 'Le prénom est requis.' });
+// Sign up
+router.post('/signup', async (req, res) => {
+  const { name, email, password} = req.body;
+  const encryptedPassword = crypto.createHash('md5').update(password).digest('hex');
+  const existingUser = await userModel.getUserByEmail(email);
+  if (existingUser) {
+    return res.status(409).json({ error: 'Utilisateur déjà existant' });
   }
-
   try {
-    const user = await userModel.getUserByName(name);
-
-    if (!user || user.name.toLowerCase() !== name.toLowerCase()) {
-      return res.status(404).json({ error: 'Utilisateur non trouvé ou prénom incorrect.' });
-    }
-
-    res.json({
-      message: 'Connexion réussie',
-      user: {
-        id: user.id,
-        name: user.name,
-        structure_id: user.structure_id,
-        surname: user.surname,
-        jobTitle: user.jobTitle,
-        image: user.image,
-        team_id: user.team_id,
-        role: user.role
-      }
-    });
+    await userModel.createUser(name, email, encryptedPassword);
+    res.status(201).json({ message: 'Utilisateur créé avec succès' });
   } catch (error) {
-    console.error('Erreur dans /login:', error); 
     res.status(500).json({ error: error.message });
   }
 });
 
+
+// Log in -- déterminer si l'utilisateur existe déjà avec findOne puis créer un token uuid, email 200 si ok et errueur 404 si non présent 
+// router.post('/login', async (req, res) => {
+//   const { email, password } = req.body;
+//   try {
+//     const user = await userModel.getUserByEmail(email);
+//     if (!user) {
+//       return res.status(404).json({ error: 'Utilisateur non trouvé' });
+//     }
+//     const encryptedPassword = crypto.createHash('md5').update(password).digest('hex');
+//     //console.log('Mot de passe crypté:', encryptedPassword, user, password);
+//     if (user.password !== encryptedPassword) {
+//       return res.status(401).json({ error: 'Mot de passe incorrect' });
+//     }
+//     const token = uuidv4(); 
+//     await tokenModel.createToken(token, email);
+//     res.json({ message: 'Connexion réussie', token});
+//   } catch (error) {
+//     res.status(404).json({ error: error.message });
+//   }
+// });
+
+// Logout
+// router.post('/logout', async (req, res) => {
+//   const { token } = req.body;
+//   try {
+//     await tokenModel.deleteToken(token);
+//     res.json({ message: 'Déconnexion réussie' });
+//   } catch (error) {
+//     res.status(500).json({ error: error.message });
+//   }
+// });
+
+
 module.exports = router;
+
+
+
+// METHODE IBP
+// Connexion simple (démo) par prénom
+// router.post('/login', async (req, res) => {
+//   const { name } = req.body;
+
+//   if (!name) {
+//     return res.status(400).json({ error: 'Le prénom est requis.' });
+//   }
+
+//   try {
+//     const user = await userModel.getUserByName(name);
+
+//     if (!user || user.name.toLowerCase() !== name.toLowerCase()) {
+//       return res.status(404).json({ error: 'Utilisateur non trouvé ou prénom incorrect.' });
+//     }
+
+//     res.json({
+//       message: 'Connexion réussie',
+//       user: {
+//         id: user.id,
+//         name: user.name,
+//         structure_id: user.structure_id,
+//         surname: user.surname,
+//         jobTitle: user.jobTitle,
+//         image: user.image,
+//         team_id: user.team_id,
+//         role: user.role
+//       }
+//     });
+//   } catch (error) {
+//     console.error('Erreur dans /login:', error); 
+//     res.status(500).json({ error: error.message });
+//   }
+// });

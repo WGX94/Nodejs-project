@@ -231,6 +231,18 @@ async function createTable() {
     } else {
       console.log('La table "sinkOrSail" existe déjà.');
     }
+    // Ajout TOKENS 
+    // const existsToken = await knex.schema.hasTable('tokens');
+    // if (!existsProduct) {
+    //   await knex.schema.createTable('tokens', table => {
+    //     table.increments('id').primary();
+    //     table.string('token');
+    //     table.string('email');
+    //   });
+    //   console.log('La table "tokens" a été créée avec succès.');
+    // } else {
+    //   console.log('La table "tokens" existe déjà.');
+    // }
 
   } catch (error) {
     console.error('Erreur lors de la création des tables :', error);

@@ -14,7 +14,7 @@ const messageRoutes = require('./routes/messageRoutes');
 const teamBadgesRoutes = require('./routes/teamBadgesRoutes');
 const likedRoutes = require('./routes/likedRoutes'); 
 const scoreRoutes = require('./routes/scoreRoutes'); 
-const sinkOrSailRoutes = require('./routes/sinkOrSailRoutes'); // Assurez-vous d'importer le bon fichier de routes
+const sinkOrSailRoutes = require('./routes/sinkOrSailRoutes'); 
 
 app.use(cors()); 
 app.use(express.json());
