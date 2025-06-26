@@ -85,6 +85,10 @@ const SideBar = () => {
     navigate("/sinkorsail");
   };
 
+  const handleProfilePage = () => {
+    navigate("/profile")
+  }
+
   return (
     <div id={expandedBar ? "sideBarContainerNotExpanded" : "sideBarContainer"}>
       <button id="toggleSideBar" onClick={handleClick}>
@@ -97,7 +101,7 @@ const SideBar = () => {
             <button className="buttonTop">
               <img className="imgIcon" src={settings} alt="settings" />
             </button>
-            <button className="buttonTop">
+            <button onClick={handleProfilePage} className="buttonTop">
               <img className="imgIcon" src={userIcon} alt="user icon" />
             </button>
             <button onClick={handleLogout} id="logOutButton">
