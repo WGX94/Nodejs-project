@@ -11,6 +11,7 @@ import Game from './pages/game/Game';
 import Victory from './pages/victory/Victory';
 import SinkOrSail from './pages/sinkorsail/SinkOrSail';
 import Profile from './pages/profile/Profile';
+import SignUp from './components/signup'; 
 
 const root = document.getElementById("root");
 
@@ -23,7 +24,7 @@ ReactDOM.createRoot(root).render(
       <Route path='/game/:gameId' element={<Game />} />
       <Route path='/victory/:gameId' element={<Victory />} />
       <Route path='/profile' element={<Profile />} />
-
+      <Route path='/signup' element={<SignUp />} />
     </Routes>
   </BrowserRouter>
 );
