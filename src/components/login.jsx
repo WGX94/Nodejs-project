@@ -7,6 +7,8 @@ function Login() {
   const [name, setName] = useState('');
   const [user, setUser] = useState(null);
   const [error, setError] = useState('');
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -16,7 +18,7 @@ function Login() {
       const res = await fetch('http://localhost/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name }),
+        body: JSON.stringify({ email, password }),
       });
       const data = await res.json();
       if (!res.ok) {
@@ -47,13 +49,21 @@ function Login() {
           <form onSubmit={handleLogin} id='formLogin'>
             <input
               type="text"
-              placeholder="Username"
-              value={name}
-              onChange={e => setName(e.target.value)}
-              id='inputLogin'
+              placeholder="Email"
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+              className='inputLogin'
+            />
+            <input 
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+              className='inputLogin'
             />
             <button type="submit" id='btnLogin'>Sign in</button>
             {error && <p style={{ color: 'red' }}>{error}</p>}
+
           </form>
 
         </div>
