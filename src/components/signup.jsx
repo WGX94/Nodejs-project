@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import "./login.scss"
+import "./signup.scss"
 
 
-function Login() {
+function SignUp() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -15,10 +15,10 @@ function Login() {
     e.preventDefault();
     setError('');
     try {
-      const res = await fetch('http://localhost/login', {
+      const res = await fetch('http://localhost/signup', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ name, email, password }),
       });
       const data = await res.json();
       if (!res.ok) {
@@ -37,7 +37,7 @@ function Login() {
 
 
   return (
-    <div id='loginContainer'>
+    <div id='signupContainer'>
       <div id='welcomeBlock'>
         <div id='innerWelcomeBlock'>
           <div id='topBlock'>
@@ -46,22 +46,29 @@ function Login() {
 
           </div>
           
-          <form onSubmit={handleLogin} id='formLogin'>
+          <form onSubmit={handleLogin} id='formSignup'>
+            <input
+              type="text"
+              placeholder="Name"
+              value={name}
+              onChange={e => setName(e.target.value)}
+              className='inputSignup'
+            />
             <input
               type="text"
               placeholder="Email"
               value={email}
               onChange={e => setEmail(e.target.value)}
-              className='inputLogin'
+              className='inputSignup'
             />
             <input
               type="password"
               placeholder="Password"
               value={password}
               onChange={e => setPassword(e.target.value)}
-              className='inputLogin'
+              className='inputSignup'
             />
-            <button type="submit" id='btnLogin'>Sign in</button>
+            <button type="submit">Sign in</button>
             {error && <p style={{ color: 'red' }}>{error}</p>}
           </form>
 
@@ -75,4 +82,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default SignUp;

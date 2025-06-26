@@ -1,4 +1,4 @@
-#loginContainer {
+#signupContainer {
     height: 100vh;
     width: 100vw;
     display: flex;
@@ -62,14 +62,14 @@
 
             }
 
-            #formLogin {
+            #formSignup {
                 gap: 10px;
                 display: flex;
                 flex-direction: column;
                 width: 70%;
 
 
-                .inputLogin {
+                .inputSignup {
                     background: none;
                     height: 50px;
                     color: white;
@@ -79,11 +79,11 @@
                     position: relative;
                 }
 
-                #inputLogin::placeholder {
+                .inputSignup::placeholder {
                     color: white;
                 }
 
-                #btnLogin::before {
+                #btnSignup::before {
                     content: '';
                     position: absolute;
                     inset: 0;
@@ -97,7 +97,7 @@
                     opacity: 40%;
                 }
 
-                #btnLogin {
+                #btnSignup {
                     background: radial-gradient(50% 50% at 50% 50%, rgba(241, 251, 255, 0.48) 100%);
                     height: 50px;
                     color: white;
