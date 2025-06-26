@@ -9,7 +9,6 @@ import arrow from "../../assets/arrow.svg"
 import { color } from "three/tsl";
 
 const ParrotTalk = () => {
-  // Utilisation des données depuis localStorage comme dans votre code original
   const storedUser = localStorage.getItem("user");
   const user = storedUser ? JSON.parse(storedUser) : null;
   const userRole = user?.role;

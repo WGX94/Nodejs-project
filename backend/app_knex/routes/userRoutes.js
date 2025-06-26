@@ -120,7 +120,7 @@ router.post('/login', async (req, res) => {
     }
     const token = uuidv4(); 
     await tokenModel.createToken(token, email);
-    res.json({ message: 'Connexion réussie', token});
+    res.json({ message: 'Connexion réussie', token, user});
   } catch (error) {
     res.status(404).json({ error: error.message });
   }
