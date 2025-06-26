@@ -65,17 +65,25 @@ router.get('/messagesPT/users/:id', async (req, res) => {
 router.put('/messagesPT/:id', async (req, res) => {
   const { id } = req.params;
   const { message } = req.body;
-  const user = await getUserFromRequest(req);
-
-  const messages = await messageModel.getMessagePTById(id);
-  if (!message || message.user_id !== user.id) {
-    return res.status(403).json({ error: 'Non autorisé' });
-  }
-
+  
   try {
+    // Récupérer le message pour vérifier qu'il existe et obtenir l'auteur
+    const existingMessage = await messageModel.getMessagePTById(id);
+    if (!existingMessage) {
+      return res.status(404).json({ error: 'Message non trouvé' });
+    }
+
+    // Mettre à jour le message
     await messageModel.updateMessagePT(id, message);
-    res.json({ message: 'Message mis à jour' });
+    
+    // Retourner le message mis à jour
+    const updatedMessage = await messageModel.getMessagePTById(id);
+    res.json({ 
+      message: 'Message mis à jour avec succès',
+      data: updatedMessage 
+    });
   } catch (error) {
+    console.error('Erreur lors de la modification du message:', error);
     res.status(500).json({ error: error.message });
   }
 });
