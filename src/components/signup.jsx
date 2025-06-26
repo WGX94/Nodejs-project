@@ -68,7 +68,7 @@ function SignUp() {
               onChange={e => setPassword(e.target.value)}
               className='inputSignup'
             />
-            <button type="submit">Sign in</button>
+            <button type="submit"  id='btnSignup'>Sign in</button>
             {error && <p style={{ color: 'red' }}>{error}</p>}
           </form>
 
