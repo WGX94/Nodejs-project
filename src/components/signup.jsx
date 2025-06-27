@@ -35,6 +35,10 @@ function SignUp() {
     }
   };
 
+  const handleGoToLogin = () => {
+    navigate('/login')
+  }
+
 
   return (
     <div id='signupContainer'>
@@ -70,6 +74,7 @@ function SignUp() {
             />
             <button type="submit"  id='btnSignup'>Sign in</button>
             {error && <p style={{ color: 'red' }}>{error}</p>}
+            <button id='buttonLogin' onClick={handleGoToLogin}>Vous avez déjà un compte ? Se connecter</button>
           </form>
 
         </div>

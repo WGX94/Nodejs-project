@@ -4,6 +4,7 @@ import deleteIcon from "../../assets/deleteIcon.svg";
 import modifyIcon from "../../assets/modifyIcon.svg";
 import heart from "../../assets/heart.svg"
 import fire from "../../assets/fire.svg"
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -11,7 +12,7 @@ const ProfileScreen = () => {
     const storedUser = localStorage.getItem("user");
     const user = storedUser ? JSON.parse(storedUser) : null;
     const userId = user?.id;
-
+    const navigate = useNavigate()
     const [messages, setMessages] = useState([]);
     const [userReactionCount, setUserReactionCount] = useState({ heart: 0, fire: 0 });
     const [error, setError] = useState("");
@@ -122,6 +123,30 @@ const ProfileScreen = () => {
         }
     };
 
+    // Supprimer un utilisateur
+    const handleDeleteUser = async () => {
+        if (!window.confirm("Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.")) return;
+
+        try {
+            const res = await fetch(`http://localhost/users/${userId}`, {
+                method: "DELETE",
+            });
+
+            if (!res.ok) {
+                const errorData = await res.json();
+                throw new Error(errorData.error || "Erreur lors de la suppression du compte");
+            }
+
+            
+            localStorage.removeItem("user");
+            navigate('/signup');
+            
+        } catch (err) {
+            console.error("Erreur lors de la suppression:", err);
+            setError(err.message);
+        }
+    };
+
     // Nombre de réactions pour chaque message
     const countReactions = (msg, reactionType) =>
         msg.reactions.filter((r) => r.reaction === reactionType).length;
@@ -129,42 +154,43 @@ const ProfileScreen = () => {
     return (
         <div id="profileScreenContainer">
             <div id="innerContainer">
-                <div id="topProfilescreen">
+                <div id="titleProfile">
+                    <h1>Profil</h1>
+                    <button id="deleteUser" onClick={handleDeleteUser}>Supprimer le compter</button>
+
+                </div>
 
                 
-                <h1>Profil</h1>
 
-                <div id="infos">
-                    <h3>Vos informations de profil</h3>
-                    {user && (
-                        <div className="user-info">
-                            <p><strong>Nom:</strong> {user.name}</p>
-                            <p><strong>Structure:</strong> {user.structure}</p>
-                            <p><strong>Pays:</strong> {user.country}</p>
-                            <p><strong>Rôle:</strong> {user.role === "A" ? "Administrateur" : "Utilisateur"}</p>
-                        </div>
-                    )}
-                </div>
+                <div id="topProfilescreen">
 
-                <div id="nbReactions">
-                    <h3>Nombre de réactions que vous avez effectuées :</h3>
-                    <div className="reaction-stats">
-                        <div className="stat-item">
-                            <img className="icons" src={heart} alt="" />
-                            <span className="count">{userReactionCount.heart}</span>
-                            <span className="label">Cœurs</span>
-                        </div>
-                        <div className="stat-item">
-                            <img className="icons" src={fire} alt="" />
-                            <span className="count">{userReactionCount.fire}</span>
-                            <span className="label">Feux</span>
-                        </div>
-                        <div className="stat-item total">
-                            <span className="label">Total:</span>
-                            <span className="count">{userReactionCount.heart + userReactionCount.fire}</span>
+                    <div id="infos">
+                        <h3>Vos informations de profil</h3>
+                        {user && (
+                            <div className="user-info">
+                                <p><strong>Nom:</strong> {user.name}</p>
+                                <p><strong>Structure:</strong> {user.structure}</p>
+                                <p><strong>Pays:</strong> {user.country}</p>
+                                <p><strong>Rôle:</strong> {user.role === "A" ? "Administrateur" : "Utilisateur"}</p>
+                            </div>
+                        )}
+                    </div>
+
+                    <div id="nbReactions">
+                        <h3>Nombre de réactions que vous avez effectuées :</h3>
+                        <div className="reaction-stats">
+                            <div className="stat-item">
+                                <img className="icons" src={heart} alt="" />
+                                <span className="count">{userReactionCount.heart}</span>
+                                
+                            </div>
+                            <div className="stat-item">
+                                <img className="icons" src={fire} alt="" />
+                                <span className="count">{userReactionCount.fire}</span>
+                
+                            </div>
                         </div>
                     </div>
-                </div>
 
                 </div>
 

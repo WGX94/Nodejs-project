@@ -35,6 +35,10 @@ function Login() {
     }
   };
 
+  const handleCreateUser = () => {
+    navigate('/signup')
+  }
+
 
   return (
     <div id='loginContainer'>
@@ -61,8 +65,9 @@ function Login() {
               onChange={e => setPassword(e.target.value)}
               className='inputLogin'
             />
-            <button type="submit" id='btnLogin'>Sign in</button>
+            <button type="submit" id='btnLogin'>Log in</button>
             {error && <p style={{ color: 'red' }}>{error}</p>}
+            <button id='buttonSignUp' onClick={handleCreateUser}>Vous n'avez pas de compte ? S'inscrire</button>
           </form>
 
         </div>

@@ -27,138 +27,139 @@
     align-items: center;
     color: white;
 
-    #topProfilescreen {
-        
-    }
+
 
     #innerContainer {
         width: 80%;
         height: 90%;
 
-        #infos::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            padding: 1px;
-            background: linear-gradient(40deg, #FFFFFF 0%, rgba(238, 237, 237, 0.5) 100%);
-            border-radius: inherit;
-            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            mask-composite: xor;
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            opacity: 40%;
-            pointer-events: none;
-            z-index: -1;
-
-        }
-
-        #infos {
-            background: radial-gradient(100.71% 141.42% at 0% 0%, rgba(255, 255, 255, 0.40) 0%, rgba(255, 255, 255, 0.06) 100%);
-            border-radius: 10px;
-            border: 0;
-            position: relative;
-        }
-
-        #nbReactions {
-            background: radial-gradient(100.71% 141.42% at 0% 0%, rgba(255, 255, 255, 0.40) 0%, rgba(255, 255, 255, 0.06) 100%);
-            border-radius: 10px;
-        }
-
-        #messages-list {
+        #titleProfile {
             display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-            height: 250px;
-            overflow: scroll;
+            justify-content: space-between;
+            align-items: center;
+
+            #deleteUser {
+                background-color: red;
+                cursor: pointer;
+                border: 1px solid white;
+                color: white;
+                border-radius: 5px;
+                padding: 5px 10px;
 
 
-            .messageItem {
-                list-style: none;
-                background: radial-gradient(100.71% 141.42% at 0% 0%, rgba(255, 255, 255, 0.40) 0%, rgba(255, 255, 255, 0.06) 100%);
-                border: 0;
-                border-radius: 10px;
-                padding: 12px;
+
+            }
+        }
+
+        #topProfilescreen {
+            display: flex;
+            justify-content: space-between;
+
+
+            #infos {
+                
+            }
+
+            #nbReactions {
+                
+            }
+        }
+
+            #messages-list {
                 display: flex;
-                flex-direction: column;
-                height: auto;
-                position: relative;
-                width: 100%;
+                gap: 20px;
+                flex-wrap: wrap;
+                height: 280px;
+                overflow: scroll;
 
-                .message-header {
-                    height: auto;
+
+                .messageItem {
+                    list-style: none;
+                    background: radial-gradient(100.71% 141.42% at 0% 0%, rgba(255, 255, 255, 0.40) 0%, rgba(255, 255, 255, 0.06) 100%);
+                    border: 0;
+                    border-radius: 10px;
+                    padding: 12px;
                     display: flex;
                     flex-direction: column;
+                    height: auto;
+                    position: relative;
+                    width: 100%;
 
-                    .topPart {
+                    .message-header {
+                        height: auto;
                         display: flex;
-                        justify-content: space-between;
-                        align-items: center;
+                        flex-direction: column;
 
-                        .user-name {
-                            font-size: 1rem;
-                            color: white;
-                        }
-
-                        .message-actions {
+                        .topPart {
                             display: flex;
-                            width: auto;
+                            justify-content: space-between;
                             align-items: center;
-                            margin: 0;
+
+                            .user-name {
+                                font-size: 1rem;
+                                color: white;
+                            }
+
+                            .message-actions {
+                                display: flex;
+                                width: auto;
+                                align-items: center;
+                                margin: 0;
 
 
-                            .action-btn {
-                                background: none;
-                                border: 0;
-                                cursor: pointer;
-                                padding: 2px;
+                                .action-btn {
+                                    background: none;
+                                    border: 0;
+                                    cursor: pointer;
+                                    padding: 2px;
 
 
-                                .actionIcon {
-                                    width: auto;
-                                    height: 1rem;
+                                    .actionIcon {
+                                        width: auto;
+                                        height: 1rem;
+                                    }
+
                                 }
 
                             }
 
                         }
 
+                        .user-details {
+                            font-size: 0.65rem;
+                            margin: 0;
+                            color: rgba(255, 255, 255, 0.50);
+                        }
+
+
                     }
 
-                    .user-details {
-                        font-size: 0.65rem;
-                        margin: 0;
-                        color: rgba(255, 255, 255, 0.50);
+                    .edit-form {
+
+                        .edit-textarea {
+                            max-height: 100px;
+                            max-width: 300px;
+                        }
+
+                    }
+
+                    .message-content {
+                        color: white;
+                        font-weight: 400;
+                        font-size: 0.9rem;
+                        margin: 4px 0 0 0;
                     }
 
 
                 }
-
-                .edit-form {
-
-                    .edit-textarea {
-                        max-height: 100px;
-                        max-width: 300px;
-                    }
-
-                }
-
-                .message-content {
-                    color: white;
-                    font-weight: 400;
-                    font-size: 0.9rem;
-                    margin: 4px 0 0 0;
-                }
-
-
             }
+
+
+
         }
-
-
-
     }
-}
 
-.icons {
-    height: 13px;
-    padding-right: 5px;
-}
+    .icons {
+        height: 13px;
+        padding-right: 5px;
+    }

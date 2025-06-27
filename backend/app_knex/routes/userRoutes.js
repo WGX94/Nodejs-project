@@ -76,9 +76,13 @@ router.put('/users/:id', upload.single('image'), async (req, res) => {
 router.delete('/users/:id', async (req, res) => {
   const { id } = req.params;
   try {
-    await userModel.deleteUser(id);
-    res.json({ message: 'Utilisateur supprimé avec succès' });
+    const result = await userModel.deleteUser(id);
+    if (result === 0) {
+      return res.status(404).json({ error: 'Utilisateur non trouvé' });
+    }
+    res.json({ message: 'Utilisateur et ses messages supprimés avec succès' });
   } catch (error) {
+    console.error('Erreur lors de la suppression:', error);
     res.status(500).json({ error: error.message });
   }
 });
