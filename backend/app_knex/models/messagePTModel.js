@@ -94,7 +94,21 @@ async function updateMessagePT(id, newMessage, newDate) {
 
 // Delete
 async function deleteMessagePT(id) {
-  return await knex('MessagesPT').where({ id }).del();
+  const trx = await knex.transaction();
+  
+  try {
+    await trx('reactions').where('messagePT_id', id).del();
+    
+    const deletedCount = await trx('messagesPT').where({ id }).del();
+    
+    await trx.commit();
+    
+    return deletedCount;
+  } catch (error) {
+    await trx.rollback();
+    console.error('Erreur lors de la suppression du message:', error);
+    throw error;
+  }
 }
 
 module.exports = {

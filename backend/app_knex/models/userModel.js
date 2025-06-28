@@ -84,21 +84,29 @@ async function updateUser(id, name, surname, jobTitle, structure_id, team_id, sc
 
 // Delete
 async function deleteUser(id) {
-  // Supprimer d'abord les réactions liées aux messages de l'utilisateur
-  await knex('reactions')
-    .whereIn('messagePT_id', 
-      knex('messagesPT').select('id').where('user_id', id)
-    )
-    .del();
+  const trx = await knex.transaction();
   
-  // Supprimer les réactions effectuées par l'utilisateur
-  await knex('reactions').where('user_id', id).del();
-  
-  // Supprimer les messages de l'utilisateur
-  await knex('messagesPT').where('user_id', id).del();
-  
-  // Supprimer l'utilisateur
-  return await knex('users').where({ id }).del();
+  try {
+    await trx('reactions')
+      .whereIn('messagePT_id', 
+        trx('messagesPT').select('id').where('user_id', id)
+      )
+      .del();
+    
+    await trx('reactions').where('user_id', id).del();
+    
+    await trx('messagesPT').where('user_id', id).del();
+    
+    const deletedCount = await trx('users').where({ id }).del();
+    
+    await trx.commit();
+    
+    return deletedCount;
+  } catch (error) {
+    await trx.rollback();
+    console.error('Erreur lors de la suppression en cascade:', error);
+    throw error;
+  }
 }
 
 module.exports = {
