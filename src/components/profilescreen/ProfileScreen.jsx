@@ -118,25 +118,31 @@ const ProfileScreen = () => {
     };
 
     const handleDeleteUser = async () => {
-        if (!window.confirm("Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.")) return;
+        if (!window.confirm("Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible et supprimera tous vos messages et réactions.")) {
+            return;
+        }
 
         try {
             const res = await fetch(`http://localhost/users/${userId}`, {
                 method: "DELETE",
+                headers: {
+                    'Content-Type': 'application/json',
+                }
             });
 
             if (!res.ok) {
-                const errorData = await res.json();
+                const errorData = await res.json().catch(() => ({ error: 'Erreur de connexion' }));
                 throw new Error(errorData.error || "Erreur lors de la suppression du compte");
             }
-
-            
             localStorage.removeItem("user");
+
+            localStorage.removeItem("token");
+
             navigate('/signup');
-            
+
         } catch (err) {
             console.error("Erreur lors de la suppression:", err);
-            setError(err.message);
+            setError(`Erreur lors de la suppression du compte: ${err.message}`);
         }
     };
 
@@ -153,7 +159,7 @@ const ProfileScreen = () => {
 
                 </div>
 
-                
+
 
                 <div id="topProfilescreen">
 
@@ -175,12 +181,12 @@ const ProfileScreen = () => {
                             <div className="stat-item">
                                 <img className="icons" src={heart} alt="" />
                                 <span className="count">{userReactionCount.heart}</span>
-                                
+
                             </div>
                             <div className="stat-item">
                                 <img className="icons" src={fire} alt="" />
                                 <span className="count">{userReactionCount.fire}</span>
-                
+
                             </div>
                         </div>
                     </div>
