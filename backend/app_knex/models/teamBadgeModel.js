@@ -1,5 +1,5 @@
 const knex = require('knex')(require('../knexfile')['development']);
-const db = require('../db'); // Si tu as déjà une instance knex dans db.js, sinon utiliser knex directement
+const db = require('../db'); 
 
 // Create
 const createTeamBadge = async (team_id, badge_id, votes, unlocked) => {
@@ -21,7 +21,7 @@ async function getTeamBadgeById(id) {
   return await db('team_badges').where({ id }).first();
 }
 
-// Get badges by team ID (all badges linked to a team)
+// Get badges by team ID
 const getBadgesByTeamId = async (teamId) => {
   const result = await db('team_badges')
     .join('badges', 'team_badges.badge_id', 'badges.id')
@@ -30,7 +30,7 @@ const getBadgesByTeamId = async (teamId) => {
   return result;
 };
 
-// Get pending badges (not unlocked) for a team
+// Get pending badges 
 const getPendingBadgesByTeamId = async (teamId) => {
   return await db('team_badges')
     .join('badges', 'team_badges.badge_id', 'badges.id')
@@ -78,14 +78,11 @@ async function deleteTeamBadge(id) {
   return await db('team_badges').where({ id }).del();
 }
 
-// Add a vote to a teamBadge and unlock if threshold reached
 const addVote = async (teamBadgeId) => {
-  // Increment votes
   await db('team_badges')
     .where('id', teamBadgeId)
     .increment('votes', 1);
 
-  // Check if vote threshold reached
   const teamBadge = await db('team_badges')
     .join('badges', 'team_badges.badge_id', 'badges.id')
     .select('team_badges.votes', 'badges.vote_threshold')

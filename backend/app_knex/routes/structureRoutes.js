@@ -1,4 +1,3 @@
-// structureRoutes.js
 const express = require('express');
 const router = express.Router();
 const structureModel = require('../models/structureModel');
@@ -69,8 +68,5 @@ router.delete('/structures/:id', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
-
-
-
 
 module.exports = router;

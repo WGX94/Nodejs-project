@@ -1,4 +1,3 @@
-// reactionRoutes.js
 const express = require('express');
 const router = express.Router();
 const reactionModel = require('../models/reactionModel');

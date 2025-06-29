@@ -3,7 +3,6 @@ import { ResponsiveRadar } from "@nivo/radar";
 import "./sinkOrSailScreen.scss";
 
 const RadarChart = ({ games, voteCounts, votes, handleVote, remainingVotes }) => {
-  // Transformation des données pour le radar chart
   const radarData = games.map((game) => ({
     game: game.name.length > 15 ? game.name.substring(0, 15) + "..." : game.name,
     votes: voteCounts[game.id] || 0,
@@ -13,7 +12,6 @@ const RadarChart = ({ games, voteCounts, votes, handleVote, remainingVotes }) =>
 
   return (
     <div className="radar-container">
-      {/* Radar Chart */}
       <div className="radar-chart">
         <ResponsiveRadar
           data={radarData}
@@ -53,13 +51,11 @@ const RadarChart = ({ games, voteCounts, votes, handleVote, remainingVotes }) =>
           legends={[]}
         />
       </div>
-      
-      {/* Game Cards positionnées autour du radar */}
+
       <div className="radar-game-cards">
         {games.map((game, index) => {
-          // Calcul des positions autour du cercle
-          const angle = (index * 360) / games.length - 90; // Commencer par le haut
-          const radius = 45; // Distance du centre en pourcentage
+          const angle = (index * 360) / games.length - 90; 
+          const radius = 45; 
           const x = 50 + (Math.cos(angle * Math.PI / 180) * radius);
           const y = 50 + (Math.sin(angle * Math.PI / 180) * radius);
           
@@ -103,7 +99,7 @@ const SinkOrSailScreen = () => {
     const remainingVotes = maxVotes - Object.keys(votes).length;
 
     useEffect(() => {
-        // Charger les jeux sélectionnés et les votes
+
         fetch("http://localhost/selected")
             .then((res) => res.json())
             .then(setGames)

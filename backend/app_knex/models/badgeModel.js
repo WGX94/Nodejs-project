@@ -1,4 +1,3 @@
-// db.js - Fichier pour gérer les opérations CRUD avec Knex
 const knex = require('knex')(require('../knexfile')['development']);
 
 // Create
@@ -33,4 +32,3 @@ module.exports = {
   deleteBadge
 };
 
-// npm install knex sqlite3

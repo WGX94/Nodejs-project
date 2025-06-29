@@ -1,4 +1,3 @@
-// db.js - Fichier pour gérer les opérations CRUD avec Knex
 const knex = require('knex')(require('../knexfile')['development']);
 const db = require('../db')
 
@@ -47,4 +46,3 @@ module.exports = {
   getGamesWithCategories
 };
 
-// npm install knex sqlite3

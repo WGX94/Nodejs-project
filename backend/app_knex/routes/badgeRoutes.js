@@ -13,8 +13,8 @@ const storage = multer.diskStorage({
     cb(null, 'uploads/');
   },
   filename: (req, file, cb) => {
-    const ext = path.extname(file.originalname); // récupère l'extension (.png, .jpg, ...)
-    const uniqueName = Date.now() + ext; // timestamp + extension
+    const ext = path.extname(file.originalname); 
+    const uniqueName = Date.now() + ext; 
     cb(null, uniqueName);
   }
 });
@@ -24,7 +24,7 @@ const upload = multer({ storage: storage });
 router.put('/badges/:id', upload.single('image'), async (req, res) => {
   const { id } = req.params;
   const { name, title, description, vote_threshold } = req.body;
-  const image = req.file ? req.file.filename : null; // Nom du fichier uploadé
+  const image = req.file ? req.file.filename : null; 
   console.log({ id, name, title, description, image, vote_threshold }); 
 
   try {

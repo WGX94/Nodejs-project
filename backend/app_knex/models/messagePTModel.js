@@ -1,4 +1,3 @@
-// db.js - Fichier pour gérer les opérations CRUD avec Knex
 const knex = require('knex')(require('../knexfile')['development']);
 const db = require('../db')
 // Create
@@ -11,7 +10,6 @@ async function getAllMessagesPTs() {
   return await knex.select().from('MessagesPT');
 }
 
-// récupérer les messages d'un utilisateur avec les réactions 
 async function getMessagesByUserId(userId) {
   try {
     const messages = await db('messagesPT as m')
@@ -83,9 +81,6 @@ async function getMessagePTById(id) {
   return await knex('MessagesPT').where({ id }).first();
 }
 
-// async function getMessagesByUserId(userId) {
-//   return await knex('MessagesPT').where({ userId });
-// }
 
 // Update
 async function updateMessagePT(id, newMessage, newDate) {
@@ -107,4 +102,3 @@ module.exports = {
   getMessages
 };
 
-// npm install knex sqlite3

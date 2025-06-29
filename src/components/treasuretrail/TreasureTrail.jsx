@@ -68,21 +68,6 @@ const TreasureTrail = () => {
       <div id="titleContainer">
         <span id="titleText">TREASURE TRAIL</span>
       </div>
-      <div>
-
-            {/* {userScore ? (
-              <div
-                id="userRowTop"
-                onClick={scrollToUser}
-                style={{ cursor: "pointer" }}
-              >
-                <div className="col-rank">{userScore?.ranking}</div>
-                <div className="col-name">{userScore?.name}</div>
-                <div className="col-score">{userScore?.score}</div>
-              </div>
-            ) : null} */}
-            </div>
-
       <div id="listScores">
         <div id="tableWrapper">
           <div id="tableHeader">

@@ -299,14 +299,14 @@ const GlobeScene = () => {
 
       console.log('Message créé avec succès:', postData ?? '[Pas de contenu JSON]');
       
-      await fetchMessages(); // RECHARGE depuis backend
+      await fetchMessages(); 
 
     } catch (error) {
       console.error('Erreur lors du clic sur message :', error);
     }
   };
 
-  // Charger les messages au montage
+
   useEffect(() => {
     fetchMessages();
   }, []);
@@ -355,7 +355,7 @@ const GlobeScene = () => {
         <div className='globeMsg'
           key={msg.id}
           ref={el => labelRefs.current[index] = el}
-          style={{ // WILLIAM BOUTONS AUTOUR DE LA PLANETE 
+          style={{ 
             position: 'absolute',
             width: 'auto',
             maxWidth: '40%',
@@ -399,7 +399,7 @@ const GlobeScene = () => {
               className='btnMsg'
               key={opt.id}
               onClick={() => handleClick(opt.id)}
-              style={{ //WILLIAAAN BOUTONS EN BAS
+              style={{ 
                 fontSize: 'clamp(0.7rem, 1.2vw, 0.8rem)',
                 padding: 'clamp(3px, 0.5vw, 4px) clamp(8px, 1.5vw, 12px)',
                 cursor: 'pointer',
@@ -408,8 +408,7 @@ const GlobeScene = () => {
                 color: '#fff',
                 transition: 'all 0.3s ease-in-out',
               }}
-            //   onMouseOver={e => e.currentTarget.style.backgroundColor = '#f90073', e.currentTarget.style.color = 'white'}
-            //   onMouseOut={e => e.currentTarget.style.backgroundColor = 'transparent', e.currentTarget.style.color = '#f90073'}
+           
             >
               {opt.text}
             </button>

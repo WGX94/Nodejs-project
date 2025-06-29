@@ -100,7 +100,6 @@ const SideBarSinkOrSail = () => {
         <img src={arrow} alt="toggle sidebar" />
       </button>
       <div id={expandedBar ? "innerContainerNotExpanded" : "innerContainer"}>
-        {/* Section fixe du haut */}
         <div className="fixed-top-section">
           <div id="topIcons">
             <button className="buttonTop"><img className="imgIcon" src={settings} alt="" /></button>
@@ -120,7 +119,6 @@ const SideBarSinkOrSail = () => {
           </button>
         </div>
 
-        {/* Contenu scrollable */}
         <div className="scrollable-content">
           {favorites.length > 0 && (
             <div id="favoritesList">

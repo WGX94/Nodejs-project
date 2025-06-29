@@ -149,13 +149,11 @@ const ParrotTalk = () => {
                     {msg.structure} • {msg.country}
                   </p>
                 </div>
-                {/* Message Content */}
                 <p className="message-content">{msg.message}</p>
 
-                {/* Reactions */}
                 <div className="reactions-container">
                   <button className="reaction-btn">
-                    <img src={more} />
+                    <img src={more} alt="plus" />
                   </button>
                   
 
@@ -165,7 +163,7 @@ const ParrotTalk = () => {
                     aria-label="Réaction fire"
                   >
                     <span className="count">{countReactions(msg, "fire")}</span>
-                    <img src={fire} />
+                    <img src={fire} alt="" />
                   </button>
                   
                   <button
@@ -175,7 +173,7 @@ const ParrotTalk = () => {
                   >
                     
                     <span className="count">{countReactions(msg, "heart")}</span>
-                    <img src={heart} />
+                    <img src={heart} alt=""/>
                   </button>
                 </div>
               </div>
@@ -183,7 +181,7 @@ const ParrotTalk = () => {
           )}
         </div>
 
-        {/* Message Input */}
+     
         {userRole === "A" && (
           <div className="input-container">
             <div className="input-wrapper">
@@ -204,7 +202,7 @@ const ParrotTalk = () => {
                 className="send-btn"
                 disabled={!message.trim()}
               >
-                <img src={arrow} id="arrowSendMsg" />
+                <img src={arrow} alt="" id="arrowSendMsg" />
               </button>
             </div>
           </div>

@@ -27,15 +27,10 @@ const Home = () => {
                     <div id="bottomContainer">
                         <TreasureTrail></TreasureTrail>
                         <GloryChest></GloryChest>
-
                     </div>
-                    
-
                 </div>
-                
             </div>     
         </>
-        
     )
 }
 

@@ -20,17 +20,11 @@ const Profile = () => {
                     <ProfileScreen></ProfileScreen>
 
                     <button onClick={handleClick} id="backHome">
-                        <img src={closeIcon} />
+                        <img src={closeIcon} alt=""/>
                     </button>
-
-
                 </div>
-                
-
-
             </div>
         </>
-
     )
 }
 

@@ -1,4 +1,3 @@
-// teamRoutes.js
 const express = require('express');
 const router = express.Router();
 const teamModel = require('../models/teamModel');
@@ -57,7 +56,5 @@ router.delete('/teams/:id', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
-
-
 
 module.exports = router;

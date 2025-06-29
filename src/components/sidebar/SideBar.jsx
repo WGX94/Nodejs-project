@@ -95,7 +95,6 @@ const SideBar = () => {
         <img src={arrow} alt="toggle sidebar" />
       </button>
       <div id={expandedBar ? "innerContainerNotExpanded" : "innerContainer"}>
-        {/* Section fixe du haut */}
         <div className="fixed-top-section">
           <div id="topIcons">
             <button className="buttonTop">
@@ -108,9 +107,7 @@ const SideBar = () => {
               Log out
             </button>
           </div>
-           {/* <div>
-              <p>{user.jobTitle}</p>
-            </div> */}
+        
           <div id="userBlock">
             <img
               id="avatar"
@@ -131,7 +128,7 @@ const SideBar = () => {
           </div>
 
           <button onClick={handleSinkOrSailClick} id="sinkOrSail">
-            <img src={sinkIcon} />
+            <img src={sinkIcon} alt=""/>
             Sink or sail
           </button>
         </div>

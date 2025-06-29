@@ -36,11 +36,7 @@ async function getTotalScore(userId) {
   return result.totalScore || 0;
 }
 
-/**
- * Récupère le classement global des scores avec les infos utilisateurs et structure.
- * @param {number} currentUserId - L'id de l'utilisateur connecté.
- * @returns {Array} Liste des scores avec nom personnalisé et infos structure.
- */
+
 async function getRanking(currentUserId) {
   const scores = await db('scores')
     .join('users', 'scores.user_id', 'users.id')

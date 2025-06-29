@@ -1,4 +1,3 @@
-// db.js - Fichier pour gérer les opérations CRUD avec Knex
 const knex = require('knex')(require('../knexfile')['development']);
 
 // Create
@@ -17,13 +16,11 @@ async function toggleReaction(user_id, reaction, messagePT_id) {
     .first();
 
   if (existing) {
-    // Supprime la réaction existante
     await knex('reactions').where({ id: existing.id }).del();
-    return { toggled: false }; // off
+    return { toggled: false }; 
   } else {
-    // Crée la réaction
     await knex('reactions').insert({ user_id, reaction, messagePT_id });
-    return { toggled: true }; // on
+    return { toggled: true }; 
   }
 }
 
@@ -51,4 +48,3 @@ module.exports = {
   toggleReaction
 };
 
-// npm install knex sqlite3

@@ -16,6 +16,7 @@ const likedRoutes = require('./routes/likedRoutes');
 const scoreRoutes = require('./routes/scoreRoutes'); 
 const sinkOrSailRoutes = require('./routes/sinkOrSailRoutes'); 
 
+
 app.use(cors()); 
 app.use(express.json());
 app.use('/', userRoutes);
@@ -33,19 +34,6 @@ app.use('/', likedRoutes);
 app.use('/', scoreRoutes); 
 app.use('/', sinkOrSailRoutes); 
 
-// const allowedApiKeys = ['TestP3', 'YOUR_API_KEY_1', 'YOUR_API_KEY_2']; //la liste des clés API autorisées
-
-// function apiKeyAuthMiddleware(req, res, next) {
-//   const apiKey = req.headers['x-api-key']; 
-
-//   if (!apiKey || !allowedApiKeys.includes(apiKey)) {
-//     return res.status(401).json({ error: 'Clé API non valide' });
-//   }
-
-//   next();
-// }
-
-// app.use(apiKeyAuthMiddleware);
 
 app.get('/', (req, res) => {
   res.send('Bienvenue sur la page d\'accueil !');

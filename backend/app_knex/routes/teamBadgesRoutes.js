@@ -1,4 +1,3 @@
-// teamBadgeBadgeRoutes.js
 const express = require('express');
 const router = express.Router();
 const teamBadgeModel = require('../models/teamBadgeModel');
@@ -50,14 +49,10 @@ router.get('/teamBadges/pendingOthers/:teamId', async (req, res) => {
 // Ajouter un vote à un teamBadge
 router.post('/teamBadges/:id/vote', async (req, res) => {
   const { id } = req.params;
-  const { userId } = req.body; // optionnel si tu veux vérifier que l'utilisateur n'a pas déjà voté
+  const { userId } = req.body; 
 
   try {
-    // Ici tu peux vérifier si userId a déjà voté sur ce teamBadgeId pour éviter votes multiples (optionnel)
-    // await teamBadgeModel.checkUserVote(id, userId);
-
     await teamBadgeModel.addVote(id, userId);
-
     res.json({ message: 'Vote ajouté avec succès' });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -71,7 +66,7 @@ router.get('/teams/:teamId/badges', async (req, res) => {
     const badges = await teamBadgeModel.getBadgesByTeamId(teamId);
     res.json(badges);
   } catch (err) {
-    console.error('Erreur dans /teams/:teamId/badges:', err.stack || err);  // <-- log complet
+    console.error('Erreur dans /teams/:teamId/badges:', err.stack || err); 
     res.status(500).json({ error: 'Erreur lors de la récupération des badges de l’équipe' });
   }
 });
@@ -122,7 +117,6 @@ router.delete('/teamBadges/:id', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
-
 
 
 module.exports = router;

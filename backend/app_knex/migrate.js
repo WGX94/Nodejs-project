@@ -38,7 +38,7 @@ async function createTable() {
       console.log('La table "badges" existe déjà.');
     }
 
-    const existsTeamBadges = await knex.schema.hasTable('team_badges'); // pour gérer relation many to many
+    const existsTeamBadges = await knex.schema.hasTable('team_badges');
     if (!existsTeamBadges) {
       await knex.schema.createTable('team_badges', table => {
         table.increments('id').primary();
@@ -85,8 +85,6 @@ async function createTable() {
         table.increments('id').primary();
         table.string('name');
         table.string('surname');
-        // table.string('email');
-        // table.string('password');
         table.string('jobTitle');
         table.integer('structure_id').unsigned()
         table.foreign('structure_id').references('id').inTable('structures');
@@ -143,7 +141,6 @@ async function createTable() {
         table.foreign('user_id').references('id').inTable('users');
         table.integer('score');
         table.string('date');
-        // table.string('image');
         table.integer('game_id').unsigned()
         table.foreign('game_id').references('id').inTable('games');
         table.integer('play_id').unsigned()
@@ -231,18 +228,7 @@ async function createTable() {
     } else {
       console.log('La table "sinkOrSail" existe déjà.');
     }
-    // Ajout TOKENS 
-    // const existsToken = await knex.schema.hasTable('tokens');
-    // if (!existsProduct) {
-    //   await knex.schema.createTable('tokens', table => {
-    //     table.increments('id').primary();
-    //     table.string('token');
-    //     table.string('email');
-    //   });
-    //   console.log('La table "tokens" a été créée avec succès.');
-    // } else {
-    //   console.log('La table "tokens" existe déjà.');
-    // }
+
 
   } catch (error) {
     console.error('Erreur lors de la création des tables :', error);

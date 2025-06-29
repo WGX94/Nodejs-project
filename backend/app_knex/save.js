@@ -1,6 +1,3 @@
-// App.js - Utilisation des opérations CRUD avec Knex
-//premiers produits que j'ai quand je démarre ma BD 
-
 const dbUser = require('./models/userModel');
 const dbTeam = require('./models/teamModel');
 const dbStructure = require('./models/structureModel');
@@ -21,12 +18,7 @@ async function main() {
   console.log('Toutes les équipes :', allTeams);
   const allStructures = await dbStructure.getAllStructures();
   console.log('Toutes les structures :', allStructures);
-  
 
-  // Update
-  // await dbStructure.updateStructure(23, 'Bezzerwizzer', '14', 'Denmark', 'Copenhagen', '09:00', '17:00' );
-  // await dbStructure.updateStructure(37, 'Exploding Kittens', '85', 'USA', 'Los Angeles', '18:00', '02:00' );
-  
 
   // Read user by ID
   const userById = await dbUser.getUserById(1);
@@ -35,12 +27,6 @@ async function main() {
   console.log('Team par ID :', teamById);
   const structureById = await dbStructure.getStructureById(1);
   console.log('Structure par ID :', structureById);
-  
-
-  // Delete
-  // await dbUser.deleteUser(1);
-  // await dbTeam.deleteTeam(1);
-  // await dbStructure.deleteStructure(1);
   
 }
 

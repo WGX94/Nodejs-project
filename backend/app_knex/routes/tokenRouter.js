@@ -35,17 +35,6 @@ router.post('/tokens', async (req, res) => {
   }
 });
 
-// Mettre à jour un token existant
-router.put('/tokens/:id', async (req, res) => {
-  const { id } = req.params;
-  const { name, price } = req.body;
-  try {
-    //await tokenModel.updateToken(id, token, email);
-    res.json({ message: 'Token mis à jour avec succès' });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
 
 // Supprimer un token
 router.delete('/tokens/:id', async (req, res) => {

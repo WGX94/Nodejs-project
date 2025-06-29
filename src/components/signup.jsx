@@ -39,7 +39,6 @@ function SignUp() {
     navigate('/login')
   }
 
-
   return (
     <div id='signupContainer'>
       <div id='welcomeBlock'>
@@ -78,9 +77,6 @@ function SignUp() {
           </form>
 
         </div>
-
-
-
       </div>
     </div>
 

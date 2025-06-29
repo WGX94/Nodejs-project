@@ -1,4 +1,3 @@
-// db.js - Fichier pour gérer les opérations CRUD avec Knex
 const knex = require('knex')(require('../knexfile')['development']);
 
 // Create
@@ -45,7 +44,6 @@ async function getUserByEmail(email) {
 
 //Update
 async function updateUser(id, name, surname, jobTitle, structure_id, team_id, score_id, liked_id, image, role, email, password) {
-  // Construire un objet updateData en ne mettant que les champs définis
   const updateData = {};
 
   if (name !== undefined) updateData.name = name;
@@ -67,37 +65,19 @@ async function updateUser(id, name, surname, jobTitle, structure_id, team_id, sc
   return await knex('users').where({ id }).update(updateData);
 }
 
-// async function updateUser(id, name, role, email, password) {
-//   const updateData = {};
-
-//   if (name !== undefined) updateData.name = name;
-//   if (email !== undefined) updateData.email = email;
-//   if (password !== undefined) updateData.password = password;
-//   if (role !== undefined) updateData.role = role;
-
-//   if (Object.keys(updateData).length === 0) {
-//     throw new Error("Aucune donnée fournie pour la mise à jour");
-//   }
-
-//   return await knex('users').where({ id }).update(updateData);
-// }
 
 // Delete
 async function deleteUser(id) {
-  // Supprimer d'abord les réactions liées aux messages de l'utilisateur
   await knex('reactions')
     .whereIn('messagePT_id', 
       knex('messagesPT').select('id').where('user_id', id)
     )
     .del();
   
-  // Supprimer les réactions effectuées par l'utilisateur
   await knex('reactions').where('user_id', id).del();
   
-  // Supprimer les messages de l'utilisateur
   await knex('messagesPT').where('user_id', id).del();
   
-  // Supprimer l'utilisateur
   return await knex('users').where({ id }).del();
 }
 

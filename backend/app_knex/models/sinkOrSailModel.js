@@ -1,27 +1,25 @@
 const knex = require('knex')(require('../knexfile')['development']);
 
-// Create – ajoute une entrée sinkOrSail
+// Create 
 async function createSinkOrSail(game_id, vote = 0, time, season) {
   return await knex('sinkOrSail').insert({ game_id, vote, time, season });
 }
 
-// Read – tous les enregistrements
+// Read 
 async function getAllSinkOrSails() {
   return await knex.select().from('sinkOrSail');
 }
 
-// Read – un enregistrement spécifique
 async function getSinkOrSailById(id) {
   return await knex('sinkOrSail').where({ id }).first();
 }
 
-// Read – tous les jeux sélectionnés pour Sink or Sail (via leurs IDs)
 async function getSelectedGameIds() {
   const results = await knex('sinkOrSail').select('game_id');
   return results.map(r => r.game_id);
 }
 
-// Update – met à jour un vote ou autres champs
+// Update 
 async function updateSinkOrSail(id, vote, time, season) {
   return await knex('sinkOrSail')
     .where({ id })

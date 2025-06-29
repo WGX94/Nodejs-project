@@ -11,7 +11,7 @@ const VictoryScreen = () => {
     const [userId, setUserId] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [showContainer, setShowContainer] = useState(false); // Nouvel état pour l'animation
+    const [showContainer, setShowContainer] = useState(false); 
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -39,7 +39,6 @@ const VictoryScreen = () => {
         }
     }, []);
 
-    // Fonction appelée quand la vidéo se termine
     const handleVideoEnd = () => {
         setShowContainer(true);
     };
@@ -67,12 +66,12 @@ const VictoryScreen = () => {
                 autoPlay 
                 muted 
                 id="myVideo"
-                onEnded={handleVideoEnd} // Événement de fin de vidéo
+                onEnded={handleVideoEnd}
             >
                 <source src={videoBg} type="video/mp4" />
             </video>
             <div id="innerVideoContainer" className={showContainer ? 'show' : ''}>
-                <img src={victoryImage} id="victoryImage" />
+                <img src={victoryImage} alt="" id="victoryImage" />
                 <div id="listScores">
                     {scores.length === 0 ? (
                         <p>Aucun score disponible pour le moment.</p>

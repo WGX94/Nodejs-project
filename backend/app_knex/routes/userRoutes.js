@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const userModel = require('../models/userModel');
 const tokenModel = require('../models/tokenModel');
+const structureModel = require('../models/structureModel');
 const multer = require('multer');
 const path = require('path');
 const { v4: uuidv4 } = require('uuid');
@@ -39,7 +40,16 @@ router.get('/users/:id', async (req, res) => {
   const { id } = req.params;
   try {
     const user = await userModel.getUserById(id);
-    res.json(user);
+
+    const structure = await structureModel.getStructureById(user.structure_id);
+    if (!structure) return res.status(404).json({ error: 'Structure non trouvée' });
+
+    
+    res.status(200).json({
+      id: user.id,
+      structure: structure.name,
+      country: structure.country,
+    });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -76,13 +86,9 @@ router.put('/users/:id', upload.single('image'), async (req, res) => {
 router.delete('/users/:id', async (req, res) => {
   const { id } = req.params;
   try {
-    const result = await userModel.deleteUser(id);
-    if (result === 0) {
-      return res.status(404).json({ error: 'Utilisateur non trouvé' });
-    }
-    res.json({ message: 'Utilisateur et ses messages supprimés avec succès' });
+    await userModel.deleteUser(id);
+    res.json({ message: 'Utilisateur supprimé avec succès' });
   } catch (error) {
-    console.error('Erreur lors de la suppression:', error);
     res.status(500).json({ error: error.message });
   }
 });
@@ -109,7 +115,7 @@ router.post('/signup', async (req, res) => {
 });
 
 
-// Log in -- déterminer si l'utilisateur existe déjà avec findOne puis créer un token uuid, email 200 si ok et errueur 404 si non présent 
+// Log in 
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
   try {
@@ -132,6 +138,7 @@ router.post('/login', async (req, res) => {
 
 // Logout
 router.post('/logout', async (req, res) => {
+  console.log('Route /logout appelée avec token :', req.body.token);
   const { token } = req.body;
   try {
     await tokenModel.deleteToken(token);
@@ -147,7 +154,7 @@ module.exports = router;
 
 
 // METHODE IBP
-// Connexion simple (démo) par prénom
+// Connexion simple par prénom
 // router.post('/login', async (req, res) => {
 //   const { name } = req.body;
 

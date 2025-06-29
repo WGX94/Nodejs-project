@@ -19,7 +19,6 @@ const ProfileScreen = () => {
     const [editingMessageId, setEditingMessageId] = useState(null);
     const [editingText, setEditingText] = useState("");
 
-    // Récupérer les messages de l'utilisateur
     useEffect(() => {
         if (!userId) return;
 
@@ -38,11 +37,8 @@ const ProfileScreen = () => {
             .catch((err) => setError(err.message));
     }, [userId]);
 
-    // Calculer le nombre total de réactions effectuées par l'utilisateur
     useEffect(() => {
         if (!userId) return;
-
-        // Récupérer tous les messages pour compter les réactions de l'utilisateur
         fetch("http://localhost/messagesPT")
             .then((res) => {
                 if (!res.ok) throw new Error("Erreur lors du chargement des messages");
@@ -68,7 +64,6 @@ const ProfileScreen = () => {
             .catch((err) => setError(err.message));
     }, [userId]);
 
-    // Supprimer un message
     const handleDeleteMessage = async (messageId) => {
         if (!window.confirm("Êtes-vous sûr de vouloir supprimer ce message ?")) return;
 
@@ -85,19 +80,18 @@ const ProfileScreen = () => {
         }
     };
 
-    // Commencer l'édition d'un message
     const startEditing = (messageId, currentText) => {
         setEditingMessageId(messageId);
         setEditingText(currentText);
     };
 
-    // Annuler l'édition
+
     const cancelEditing = () => {
         setEditingMessageId(null);
         setEditingText("");
     };
 
-    // Sauvegarder les modifications
+  
     const saveEdit = async (messageId) => {
         if (!editingText.trim()) return;
 
@@ -123,7 +117,6 @@ const ProfileScreen = () => {
         }
     };
 
-    // Supprimer un utilisateur
     const handleDeleteUser = async () => {
         if (!window.confirm("Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.")) return;
 
@@ -147,7 +140,7 @@ const ProfileScreen = () => {
         }
     };
 
-    // Nombre de réactions pour chaque message
+
     const countReactions = (msg, reactionType) =>
         msg.reactions.filter((r) => r.reaction === reactionType).length;
 
@@ -169,8 +162,8 @@ const ProfileScreen = () => {
                         {user && (
                             <div className="user-info">
                                 <p><strong>Nom:</strong> {user.name}</p>
-                                <p><strong>Structure:</strong> {user.structure}</p>
-                                <p><strong>Pays:</strong> {user.country}</p>
+                                {/* <p><strong>Structure:</strong> {user.structure}</p>
+                                <p><strong>Pays:</strong> {user.country}</p> */}
                                 <p><strong>Rôle:</strong> {user.role === "A" ? "Administrateur" : "Utilisateur"}</p>
                             </div>
                         )}

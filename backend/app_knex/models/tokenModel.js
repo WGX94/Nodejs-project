@@ -1,4 +1,3 @@
-// db.js - Fichier pour gérer les opérations CRUD avec Knex
 const knex = require('knex')(require('../knexfile')['development']);
 
 // Create
@@ -15,10 +14,6 @@ async function getTokenById(id) {
   return await knex('tokens').where({ id }).first();
 }
 
-// Update
-async function updateToken(token, email) {
-  //return await knex('tokens').where({ id }).update({ token : newToken, email: newEmail });
-}
 
 // Delete
 async function deleteToken(token) {
@@ -29,8 +24,6 @@ module.exports = {
   createToken,
   getAllTokens,
   getTokenById,
-  updateToken,
   deleteToken
 };
 
-// npm install knex sqlite3
